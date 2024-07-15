@@ -53,7 +53,7 @@ class MyCounterChild extends Cona {}
 #### using `CDN`
 First, add `script` to the `html` file
 ```html
-<script src="https://unpkg.com/cona"></script>
+<script src="https://unpkg.com/@pinjs/cona"></script>
 ```
 
 then, add `script` to the `html` file

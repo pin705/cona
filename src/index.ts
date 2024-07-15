@@ -114,7 +114,7 @@ export class Cona extends HTMLElement {
         (c as any)._update(true);
       } else if (c.textContent !== n.textContent) replace();
 
-      if (c.attributes) {
+      if (c?.attributes) {
         while (c.attributes.length > 0) c.removeAttribute(c.attributes[0].name);
 
         for (const { name, value } of this._nodeMap(n?.attributes)) {
