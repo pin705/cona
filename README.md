@@ -1,13 +1,24 @@
-# packageName
+### Why Cona?
+
+- Writing a Web Component (WC) using vanilla JavaScript can be such tedious. Alternatively, popular WC libraries can be overkill and overweighted (4KB+) for creating small components like a `"Buy now" button` or a `cart listing`.
+
+- `Cona` simplifies the process by staying lightweight, removing unnecessary APIs, and using a simple DOM diffing algorithm.
+
+### Features
+
+- `1.3KB` gzipped.
+- Simple API inspired from `Vue`.
+
+# Cona
 
 <!-- automd:badges color=yellow -->
 
-[![npm version](https://img.shields.io/npm/v/packageName?color=yellow)](https://npmjs.com/package/packageName)
-[![npm downloads](https://img.shields.io/npm/dm/packageName?color=yellow)](https://npmjs.com/package/packageName)
+[![npm version](https://img.shields.io/npm/v/packageName?color=yellow)](https://www.npmjs.com/package/@pinjs/cona)
+[![npm downloads](https://img.shields.io/npm/dm/packageName?color=yellow)](https://www.npmjs.com/package/@pinjs/cona)
 
 <!-- /automd -->
 
-This is my package description.
+Web Component Nano Simple API inspired from Vue
 
 ## Usage
 
@@ -17,46 +28,133 @@ Install package:
 
 ```sh
 # ✨ Auto-detect
-npx nypm install packageName
+npx nypm install @pinjs/cona
 
 # npm
-npm install packageName
+npm install @pinjs/cona
 
 # yarn
-yarn add packageName
+yarn add @pinjs/cona
 
 # pnpm
-pnpm install packageName
+pnpm install @pinjs/cona
 
 # bun
-bun install packageName
+bun install @pinjs/cona
 ```
 
-<!-- /automd -->
-
-Import:
-
-<!-- automd:jsimport cjs cdn name="pkg" -->
-
-**ESM** (Node.js, Bun)
 
 ```js
-import {} from "pkg";
+import { Cona } from '@pinjs/cona';
+class MyCounterChild extends Cona {}
 ```
 
-**CommonJS** (Legacy Node.js)
+
+#### using `CDN`
+First, add `script` to the `html` file
+```html
+<script src="https://unpkg.com/cona"></script>
+```
+
+then, add `script` to the `html` file
+
+```html
+<script>
+  let Cona = cona.Cona;
+  class MyCounterChild extends Cona {}
+</script>
+```
+
+### Usage
 
 ```js
-const {} = require("pkg");
+/* main.js */
+
+/* declare global style. Styles will be injected to all Cona Elements */
+Cona.style = `
+  .box {
+    background: blue;
+    color: yellow;
+  }
+`
+
+class MyCounterChild extends Cona {
+  render(h) {
+    /* bind value from props */
+    return h`<div>Child: ${this.props.count}</div>`
+  }
+}
+
+class MyCounter extends Cona {
+  setup() {
+    /* this method runs before mount */
+
+    /* create component state using "this.reactive", state must be an object */
+    this.state = this.reactive({ count: 1 });
+
+    /* only use ref for storing DOM reference */
+    this.pRef = this.ref();
+
+    /* effect */
+    this.effect(
+      // effect value: fn -> value
+      () => this.state.count,
+      // effect callback: fn(old value, new value)
+      (oldValue, newValue) => {
+        console.log(oldValue, newValue)
+      }
+    )
+  }
+
+  onMounted() {
+    /* this method runs after mount */
+    console.log('Mounted');
+  }
+
+  onUpdated() {
+    /* this method runs after each update. */
+    console.log('Updated');
+
+    /* P tag ref */
+    console.log('P Ref', this.pRef?.current);
+  }
+
+  onUnmounted() {
+    /* this method runs before unmount */
+    console.log('Before unmount');
+  }
+
+  addCount() {
+    /* update state by redeclaring its key-value. Avoid updating the whole state. */
+    this.state.count += 1;
+  }
+
+  render(h) {
+    /* this method is used to render */
+
+    /*
+      JSX template alike
+      - Must have only 1 root element
+      - Bind state / event using value in literal string
+      - Pass state to child element using props with 'p:' prefix
+     */
+    return h`
+      <div class="box">
+        <p ref=${this.pRef}>Name: ${this.state.count}</p>
+        <button onclick=${this.addCount}>Add count</button>
+        <my-counter-child p:count=${this.state.count + 5}></my-counter-child>
+      </div>
+    `
+  }
+}
+
+customElements.define("my-counter", MyCounter);
+customElements.define("my-counter-child", MyCounterChild);
 ```
 
-**CDN** (Deno, Bun and Browsers)
-
-```js
-import {} from "https://esm.sh/pkg";
-```
-
-<!-- /automd -->
+```html
+/* index.html */
+<my-counter />
 
 ## Development
 

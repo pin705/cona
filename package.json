@@ -1,10 +1,10 @@
 {
-  "name": "@unmjs/cona",
+  "name": "@pinjs/cona",
   "version": "0.0.1",
-  "description": "<!-- automd:badges color=yellow -->",
+  "description": "Web Component Nano Simple API inspired from Vue",
   "repository": {
     "type": "git",
-    "url": "https://registry.npmjs.org/@unmjs/cona"
+    "url": "https://github.com/pinnnguyen/cona"
   },
   "license": "MIT",
   "sideEffects": false,
