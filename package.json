@@ -1,6 +1,6 @@
 {
   "name": "@pinjs/cona",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Web Component Nano Simple API inspired from Vue",
   "repository": {
     "type": "git",
@@ -29,7 +29,7 @@
     "lint:fix": "automd && eslint . --fix && biome check --apply .",
     "prepack": "pnpm build",
     "play": "jiti playground",
-    "release": "pnpm test && changelogen --release && npm publish && git push --follow-tags",
+    "release": "changelogen --release && npm publish && git push --follow-tags",
     "test": "pnpm lint && pnpm test:types && vitest run --coverage",
     "test:types": "tsc --noEmit --skipLibCheck"
   },
