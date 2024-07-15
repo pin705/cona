@@ -3,7 +3,7 @@
 [![npm version](https://img.shields.io/npm/v/@pinjs/cona?color=yellow)](https://www.npmjs.com/package/@pinjs/cona)
 [![npm downloads](https://img.shields.io/npm/dm/@pinjs/cona?color=yellow)](https://www.npmjs.com/package/@pinjs/cona)
 
-**Web Component Nano - Simple API inspired by Vue**
+**Web Component Nano Simple API inspired from Vue typescript friendly**
 
 ## **Table of Contents**
 
