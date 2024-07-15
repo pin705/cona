@@ -19,14 +19,12 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
     "build": "unbuild",
     "dev": "vite serve ./playground",
-    "lint": "eslint . && biome check .",
-    "lint:fix": "automd && eslint . --fix && biome check --apply .",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "prepack": "pnpm build",
     "play": "jiti playground",
     "release": "changelogen --release && npm publish && git push --follow-tags",
@@ -37,7 +35,6 @@
     "@biomejs/biome": "^1.7.2",
     "@types/node": "^20.12.7",
     "@vitest/coverage-v8": "^1.5.3",
-    "automd": "^0.3.7",
     "changelogen": "^0.5.5",
     "eslint": "^9.1.1",
     "eslint-config-unjs": "^0.3.0-rc.7",

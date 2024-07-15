@@ -1,30 +1,33 @@
-### Why Cona?
+# **Cona**
 
-- Writing a Web Component (WC) using vanilla JavaScript can be such tedious. Alternatively, popular WC libraries can be overkill and overweighted (4KB+) for creating small components like a `"Buy now" button` or a `cart listing`.
+[![npm version](https://img.shields.io/npm/v/@pinjs/cona?color=yellow)](https://www.npmjs.com/package/@pinjs/cona)
+[![npm downloads](https://img.shields.io/npm/dm/@pinjs/cona?color=yellow)](https://www.npmjs.com/package/@pinjs/cona)
 
+**Web Component Nano - Simple API inspired by Vue**
+
+## **Table of Contents**
+
+- [Why Cona?](#why-cona)
+- [Features](#features)
+- [Usage](#usage)
+  - [Installation](#installation)
+  - [Using CDN](#using-cdn)
+- [Example](#example)
+- [Development](#development)
+
+## **Why Cona?**
+
+- Writing a Web Component (WC) using vanilla JavaScript can be tedious. Alternatively, popular WC libraries can be overkill and overweight (4KB+) for creating small components like a `"Buy now" button` or a `cart listing`.
 - `Cona` simplifies the process by staying lightweight, removing unnecessary APIs, and using a simple DOM diffing algorithm.
 
-### Features
+## **Features**
 
-- `1.3KB` gzipped.
-- Simple API inspired from `Vue`.
+- **1.3KB** gzipped.
+- Simple API inspired by `Vue`.
 
-# Cona
+## **Usage**
 
-<!-- automd:badges color=yellow -->
-
-[![npm version](https://img.shields.io/npm/v/packageName?color=yellow)](https://www.npmjs.com/package/@pinjs/cona)
-[![npm downloads](https://img.shields.io/npm/dm/packageName?color=yellow)](https://www.npmjs.com/package/@pinjs/cona)
-
-<!-- /automd -->
-
-Web Component Nano Simple API inspired from Vue
-
-## Usage
-
-Install package:
-
-<!-- automd:pm-install -->
+### **Installation**
 
 ```sh
 # ✨ Auto-detect
@@ -43,34 +46,27 @@ pnpm install @pinjs/cona
 bun install @pinjs/cona
 ```
 
-
-```js
-import { Cona } from '@pinjs/cona';
-class MyCounterChild extends Cona {}
+##Using CDN
+First, add the script to the HTML file:
+```<script src="https://unpkg.com/@pinjs/cona"></script>```
+Then, add your component script:
 ```
-
-
-#### using `CDN`
-First, add `script` to the `html` file
-```html
-<script src="https://unpkg.com/@pinjs/cona"></script>
-```
-
-then, add `script` to the `html` file
-
-```html
 <script>
   let Cona = cona.Cona;
   class MyCounterChild extends Cona {}
 </script>
 ```
-
-### Usage
-
-```js
+```
+<script>
+  let Cona = cona.Cona;
+  class MyCounterChild extends Cona {}
+</script>
+```
+##Example
+```
 /* main.js */
 
-/* declare global style. Styles will be injected to all Cona Elements */
+/* Declare global style. Styles will be injected to all Cona Elements */
 Cona.style = `
   .box {
     background: blue;
@@ -80,33 +76,33 @@ Cona.style = `
 
 class MyCounterChild extends Cona {
   render(h) {
-    /* bind value from props */
+    /* Bind value from props */
     return h`<div>Child: ${this.props.count}</div>`
   }
 }
 
 class MyCounter extends Cona {
   setup() {
-    /* this method runs before mount */
+    /* This method runs before mount */
 
-    /* create component state using "this.reactive", state must be an object */
+    /* Create component state using "this.reactive", state must be an object */
     this.state = this.reactive({ count: 1 });
 
-    /* only use ref for storing DOM reference */
+    /* Only use ref for storing DOM reference */
     this.pRef = this.ref();
 
-    /* effect */
+    /* Effect */
     this.effect(
-      // effect value: fn -> value
+      // Effect value: fn -> value
       () => this.state.count,
-      // effect callback: fn(old value, new value)
+      // Effect callback: fn(old value, new value)
       (oldValue, newValue) => {
         console.log(oldValue, newValue)
       }
     )
 
     /* Watch */
-     this.watch(
+    this.watch(
       () => this.state.count,
       (newValue, oldValue) => {
         console.log(`Count changed from ${oldValue} to ${newValue}`);
@@ -115,12 +111,12 @@ class MyCounter extends Cona {
   }
 
   onMounted() {
-    /* this method runs after mount */
+    /* This method runs after mount */
     console.log('Mounted');
   }
 
   onUpdated() {
-    /* this method runs after each update. */
+    /* This method runs after each update. */
     console.log('Updated');
 
     /* P tag ref */
@@ -128,24 +124,24 @@ class MyCounter extends Cona {
   }
 
   onUnmounted() {
-    /* this method runs before unmount */
+    /* This method runs before unmount */
     console.log('Before unmount');
   }
 
   addCount() {
-    /* update state by redeclaring its key-value. Avoid updating the whole state. */
+    /* Update state by redeclaring its key-value. Avoid updating the whole state. */
     this.state.count += 1;
   }
 
   render(h) {
-    /* this method is used to render */
+    /* This method is used to render */
 
     /*
       JSX template alike
       - Must have only 1 root element
       - Bind state / event using value in literal string
       - Pass state to child element using props with 'p:' prefix
-     */
+    */
     return h`
       <div class="box">
         <p ref=${this.pRef}>Name: ${this.state.count}</p>
@@ -159,42 +155,16 @@ class MyCounter extends Cona {
 customElements.define("my-counter", MyCounter);
 customElements.define("my-counter-child", MyCounterChild);
 ```
-
-```html
+```
 /* index.html */
 <my-counter />
-
-## Development
-
+```
+##Development
 <details>
-
-<summary>local development</summary>
-
-- Clone this repository
-- Install latest LTS version of [Node.js](https://nodejs.org/en/)
-- Enable [Corepack](https://github.com/nodejs/corepack) using `corepack enable`
-- Install dependencies using `pnpm install`
-- Run interactive tests using `pnpm dev`
-
+<summary>Local Development</summary>
+Clone this repository
+Install the latest LTS version of Node.js
+Enable Corepack using corepack enable
+Install dependencies using pnpm install
+Run interactive tests using pnpm dev
 </details>
-
-## License
-
-<!-- automd:contributors license=MIT -->
-
-Published under the [MIT](https://github.com/unjs/packageName/blob/main/LICENSE) license.
-Made by [community](https://github.com/unjs/packageName/graphs/contributors) 💛
-<br><br>
-<a href="https://github.com/unjs/packageName/graphs/contributors">
-<img src="https://contrib.rocks/image?repo=unjs/packageName" />
-</a>
-
-<!-- /automd -->
-
-<!-- automd:with-automd -->
-
----
-
-_🤖 auto updated with [automd](https://automd.unjs.io)_
-
-<!-- /automd -->

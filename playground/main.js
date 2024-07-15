@@ -135,7 +135,7 @@ class AlbumList extends Cona {
       () => this.state.search,
       (newValue, oldValue) => {
         console.log(`Count changed from ${oldValue} to ${newValue}`);
-      }
+      },
     );
   }
 
@@ -155,7 +155,6 @@ class AlbumList extends Cona {
   onUpdated() {
     console.log("H1 Ref", this.h1Ref?.current);
   }
-
 
   async viewAlbum(id) {
     const response = await fetch(

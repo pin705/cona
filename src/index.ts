@@ -229,13 +229,13 @@ export class Cona extends HTMLElement {
     });
   }
 
-/**
- * Watches for changes in the value returned by the getter function and invokes the callback function when a change occurs.
- * @param getter - A function that returns the value to watch for changes.
- * @param callback - A function that will be called when a change occurs, with the new value and the old value as arguments.
- * @typeparam T - The type of the value returned by the getter function.
- */
- watch<T>(getter: () => T, callback: (newValue: T, oldValue: T) => void) {
+  /**
+   * Watches for changes in the value returned by the getter function and invokes the callback function when a change occurs.
+   * @param getter - A function that returns the value to watch for changes.
+   * @param callback - A function that will be called when a change occurs, with the new value and the old value as arguments.
+   * @typeparam T - The type of the value returned by the getter function.
+   */
+  watch<T>(getter: () => T, callback: (newValue: T, oldValue: T) => void) {
     this.effect(getter, (oldValue, newValue) => {
       callback(newValue, oldValue);
     });
