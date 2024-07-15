@@ -1,8 +1,11 @@
 {
-  "name": "packageName",
-  "version": "0.0.0",
-  "description": "",
-  "repository": "unjs/packageName",
+  "name": "@unmjs/cona",
+  "version": "0.0.1",
+  "description": "<!-- automd:badges color=yellow -->",
+  "repository": {
+    "type": "git",
+    "url": "https://registry.npmjs.org/@unmjs/cona"
+  },
   "license": "MIT",
   "sideEffects": false,
   "type": "module",
@@ -16,7 +19,9 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "unbuild",
     "dev": "vitest dev",
@@ -41,5 +46,12 @@
     "unbuild": "^2.0.0",
     "vitest": "^1.5.3"
   },
-  "packageManager": "pnpm@9.0.6"
+  "packageManager": "pnpm@9.0.6",
+  "dependencies": {
+    "defu": "^6.1.4"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "author": "pin"
 }

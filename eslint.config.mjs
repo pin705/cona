@@ -5,7 +5,7 @@ export default unjs({
     // ignore paths
   ],
   rules: {
-    // rule overrides
+    noImplicitAny: "off",
   },
   markdown: {
     rules: {
