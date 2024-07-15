@@ -1,6 +1,6 @@
 {
   "name": "@pinjs/cona",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Web Component Nano Simple API inspired from Vue",
   "repository": {
     "type": "git",
@@ -19,7 +19,9 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "unbuild",
     "dev": "vite serve ./playground",
