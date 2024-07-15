@@ -1,6 +1,6 @@
 {
   "name": "@pinjs/cona",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Web Component Nano Simple API inspired from Vue",
   "repository": {
     "type": "git",
