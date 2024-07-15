@@ -46,7 +46,7 @@ pnpm install @pinjs/cona
 bun install @pinjs/cona
 ```
 
-##Using CDN
+## Using CDN
 First, add the script to the HTML file:
 ```<script src="https://unpkg.com/@pinjs/cona"></script>```
 Then, add your component script:
@@ -62,7 +62,7 @@ Then, add your component script:
   class MyCounterChild extends Cona {}
 </script>
 ```
-##Example
+## Example
 ```
 /* main.js */
 
@@ -159,12 +159,12 @@ customElements.define("my-counter-child", MyCounterChild);
 /* index.html */
 <my-counter />
 ```
-##Development
+## Development
 <details>
 <summary>Local Development</summary>
-Clone this repository
-Install the latest LTS version of Node.js
-Enable Corepack using corepack enable
-Install dependencies using pnpm install
+Clone this repository <br />
+Install the latest LTS version of Node.js<br />
+Enable Corepack using corepack enable<br />
+Install dependencies using pnpm install<br />
 Run interactive tests using pnpm dev
 </details>
