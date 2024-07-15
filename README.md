@@ -50,20 +50,20 @@ bun install @pinjs/cona
 First, add the script to the HTML file:
 ```<script src="https://unpkg.com/@pinjs/cona"></script>```
 Then, add your component script:
-```
+```html
 <script>
   let Cona = cona.Cona;
   class MyCounterChild extends Cona {}
 </script>
 ```
-```
+```html
 <script>
   let Cona = cona.Cona;
   class MyCounterChild extends Cona {}
 </script>
 ```
 ## Example
-```
+```js
 /* main.js */
 
 /* Declare global style. Styles will be injected to all Cona Elements */
@@ -155,7 +155,7 @@ class MyCounter extends Cona {
 customElements.define("my-counter", MyCounter);
 customElements.define("my-counter-child", MyCounterChild);
 ```
-```
+```html
 /* index.html */
 <my-counter />
 ```
