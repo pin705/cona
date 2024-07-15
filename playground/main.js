@@ -124,11 +124,18 @@ class AlbumList extends Cona {
       selectedAlbum: undefined,
       search: "",
     });
-    this.h1Ref = this.ref();
 
+    this.h1Ref = this.ref();
     this.effect(
       () => this.state.search,
       (oldValue, newValue) => console.log(oldValue, newValue),
+    );
+
+    this.watch(
+      () => this.state.search,
+      (newValue, oldValue) => {
+        console.log(`Count changed from ${oldValue} to ${newValue}`);
+      }
     );
   }
 
@@ -148,6 +155,7 @@ class AlbumList extends Cona {
   onUpdated() {
     console.log("H1 Ref", this.h1Ref?.current);
   }
+
 
   async viewAlbum(id) {
     const response = await fetch(

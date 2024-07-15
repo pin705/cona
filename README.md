@@ -104,6 +104,14 @@ class MyCounter extends Cona {
         console.log(oldValue, newValue)
       }
     )
+
+    /* Watch */
+     this.watch(
+      () => this.state.count,
+      (newValue, oldValue) => {
+        console.log(`Count changed from ${oldValue} to ${newValue}`);
+      }
+    );
   }
 
   onMounted() {

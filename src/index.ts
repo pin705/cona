@@ -71,6 +71,12 @@ export class Cona extends HTMLElement {
     this.onUnmounted?.();
   }
 
+  /**
+   * Updates the component by performing a diffing algorithm on the rendered HTML.
+   *
+   * @param shouldShallowCompareProps - Optional parameter indicating whether to perform a shallow comparison of props before updating.
+   * @returns void
+   */
   private _update(shouldShallowCompareProps = false) {
     if (shouldShallowCompareProps && defu(this._op, this.props)) return;
     const renderString = this.render?.(this._render.bind(this));
@@ -95,6 +101,12 @@ export class Cona extends HTMLElement {
     }
   }
 
+  /**
+   * Performs a diffing operation between two DOM nodes and updates the current node accordingly.
+   * @param current - The current DOM node.
+   * @param next - The next DOM node.
+   * @param styleNode - Optional style node to be inserted at the beginning of the next node's child nodes.
+   */
   private _pathDomDiffing(current: Node, next: Node, styleNode?: Node) {
     const cNodes = this._nodeMap(current.childNodes);
     const nNodes = this._nodeMap(next.childNodes);
@@ -124,6 +136,12 @@ export class Cona extends HTMLElement {
     }
   }
 
+  /**
+   * Renders a template string by replacing placeholders with corresponding values.
+   * @param stringArray - The template string array.
+   * @param valueArray - The values to be inserted into the template string.
+   * @returns The rendered template string.
+   */
   private _render(stringArray: TemplateStringsArray, ...valueArray: any[]) {
     return stringArray
       .map((s, index) => {
@@ -150,6 +168,10 @@ export class Cona extends HTMLElement {
       .join("");
   }
 
+  /**
+   * Handles event binding and sets the ref property for Cona component.
+   * @private
+   */
   private _event() {
     if (!this._sr) return;
     for (const node of this._sr.querySelectorAll("*")) {
@@ -163,15 +185,33 @@ export class Cona extends HTMLElement {
     }
   }
 
+  /**
+   * Sets the effect function and callback for a given value function.
+   * The effect function is called immediately and whenever the value function changes.
+   *
+   * @param valueFn - The value function to track for changes.
+   * @param callback - The callback function to execute when the value function changes.
+   */
   effect(valueFn: EffectFunction, callback: EffectCallback) {
     this._ef.set(valueFn, callback);
     this._ev.set(valueFn, valueFn.bind(this)());
   }
 
+  /**
+   * Creates a new reference object with the specified initial value.
+   * @param initialValue - The initial value for the reference object.
+   * @returns A reference object with the specified initial value.
+   * @template T - The type of the initial value.
+   */
   ref<T>(initialValue: T): RefObject<T> {
     return { current: initialValue };
   }
 
+  /**
+   * Creates a reactive proxy for the given state object.
+   * @param state - The state object to make reactive.
+   * @returns A reactive proxy object.
+   */
   reactive<T extends State>(state: T): T {
     return new Proxy(state, {
       set: (target, key: string | symbol, value: any) => {
@@ -189,6 +229,24 @@ export class Cona extends HTMLElement {
     });
   }
 
+/**
+ * Watches for changes in the value returned by the getter function and invokes the callback function when a change occurs.
+ * @param getter - A function that returns the value to watch for changes.
+ * @param callback - A function that will be called when a change occurs, with the new value and the old value as arguments.
+ * @typeparam T - The type of the value returned by the getter function.
+ */
+ watch<T>(getter: () => T, callback: (newValue: T, oldValue: T) => void) {
+    this.effect(getter, (oldValue, newValue) => {
+      callback(newValue, oldValue);
+    });
+  }
+
+  /**
+   * Converts a NamedNodeMap or NodeListOf<ChildNode> to an array.
+   *
+   * @param attributes - The NamedNodeMap or NodeListOf<ChildNode> to convert.
+   * @returns An array containing the converted elements.
+   */
   private _nodeMap(
     attributes: NamedNodeMap | NodeListOf<ChildNode>,
   ): Array<any> {
