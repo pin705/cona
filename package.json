@@ -4,7 +4,7 @@
   "description": "Web Component Nano Simple API inspired from Vue",
   "repository": {
     "type": "git",
-    "url": "https://github.com/pinnnguyen/cona"
+    "url": "https://github.com/pin705/cona"
   },
   "license": "MIT",
   "sideEffects": false,
