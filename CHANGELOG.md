@@ -1,6 +1,22 @@
 # Changelog
 
 
+## v0.0.8
+
+[compare changes](https://github.com/pinnnguyen/cona/compare/v0.0.7...v0.0.8)
+
+### 🚀 Enhancements
+
+- Add computed api ([98e8de5](https://github.com/pinnnguyen/cona/commit/98e8de5))
+
+### 🏡 Chore
+
+- Update md file ([ed16991](https://github.com/pinnnguyen/cona/commit/ed16991))
+
+### ❤️ Contributors
+
+- Pinnnguyen <pinnguyen0597@gmail.com>
+
 ## v0.0.7
 
 [compare changes](https://github.com/pinnnguyen/cona/compare/v0.0.6...v0.0.7)
