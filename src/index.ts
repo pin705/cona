@@ -1,5 +1,3 @@
-import { defu } from "defu";
-
 type EffectCallback = (oldValue: any, newValue: any) => void;
 type EffectFunction = () => any;
 type RefObject<T> = { current: T };
@@ -10,6 +8,10 @@ interface Props {
 
 interface State {
   [key: string]: any;
+}
+
+interface Computed<T> {
+  get: () => T;
 }
 
 export class Cona extends HTMLElement {
@@ -78,7 +80,7 @@ export class Cona extends HTMLElement {
    * @returns void
    */
   private _update(shouldShallowCompareProps = false) {
-    if (shouldShallowCompareProps && defu(this._op, this.props)) return;
+    if (shouldShallowCompareProps && this._shadowCompareObject(this._op, this.props)) return;
     const renderString = this.render?.(this._render.bind(this));
     const { body } = new DOMParser().parseFromString(
       renderString || "",
@@ -134,6 +136,10 @@ export class Cona extends HTMLElement {
         }
       }
     }
+  }
+
+  private _shadowCompareObject<T extends Record<string, any>, U extends Record<string, any>>(obj1: T, obj2: U): boolean {
+    return Object.keys(obj1).every((key) => key in obj2 && obj1[key] === obj2[key]);
   }
 
   /**
@@ -239,6 +245,14 @@ export class Cona extends HTMLElement {
     this.effect(getter, (oldValue, newValue) => {
       callback(newValue, oldValue);
     });
+  }
+
+  computed<T>(getter: () => T): () => T {
+    let cachedValue: T = getter();
+    this.effect(getter, (_, newValue) => {
+      cachedValue = newValue;
+    });
+    return () => cachedValue;
   }
 
   /**
