@@ -21,7 +21,7 @@
 - `Cona` simplifies the process by staying lightweight, removing unnecessary APIs, and using a simple DOM diffing algorithm.
 
 ## **Features**
-
+- No dependencies
 - **1.3KB** gzipped.
 - Simple API inspired by `Vue`.
 
@@ -159,6 +159,55 @@ customElements.define("my-counter-child", MyCounterChild);
 /* index.html */
 <my-counter />
 ```
+## Computed
+```js
+class CounterComponent extends Cona {
+  private state: { count: number; doubleCount: () => number };
+
+  constructor() {
+    super();
+    this.state = this.reactive({ count: 0 });
+    this.state.doubleCount = this.computed(() => this.state.count * 2);
+  }
+
+  setup() {
+    // Watching the state.count property
+    this.watch(
+      () => this.state.count,
+      (newValue, oldValue) => {
+        console.log(`Count changed from ${oldValue} to ${newValue}`);
+      }
+    );
+
+    // Watching the computed doubleCount property
+    this.watch(
+      this.state.doubleCount,
+      (newValue, oldValue) => {
+        console.log(`DoubleCount changed from ${oldValue} to ${newValue}`);
+      }
+    );
+  }
+
+  render() {
+    return this._render`
+      <div>
+        <button p:onclick=${this.increment}>Increment</button>
+        <p>Count: ${this.state.count}</p>
+        <p>Double Count: ${this.state.doubleCount()}</p>
+      </div>
+    `;
+  }
+
+  private increment() {
+    this.state.count++;
+  }
+}
+
+// Define the custom element
+customElements.define('counter-component', CounterComponent);
+
+```
+
 ## Development
 <details>
 <summary>Local Development</summary>
