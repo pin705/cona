@@ -164,7 +164,13 @@ export class Cona extends HTMLElement {
                 : currentValue;
 
             valueString = key;
-          } else valueString = JSON.stringify(currentValue);
+          } else {
+              valueString = `${currentValue}`;
+              for (const letter of '&\'"<>\r\n'.split('')) {
+                  valueString = valueString.replaceAll(letter, `&#${letter.charCodeAt(0)};`);
+              }
+              valueString = `"${valueString}"`;
+          }
         } else if (Array.isArray(currentValue)) {
           valueString = currentValue.join("");
         }
