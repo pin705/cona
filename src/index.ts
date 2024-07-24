@@ -155,7 +155,7 @@ export class Cona extends HTMLElement {
         let valueString = currentValue;
 
         if (s.endsWith("=")) {
-          if (/\s(p:.+|on.+|ref)=$/.test(s)) {
+          if (/\s(p:\S+|on\S+|ref)=$/.test(s)) {
             const key = Math.random().toString(36);
 
             Cona._c[key] =
