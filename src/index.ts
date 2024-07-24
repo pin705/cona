@@ -21,6 +21,7 @@ export class Cona extends HTMLElement {
   private _ev: Map<EffectFunction, any>;
   private _sr?: ShadowRoot | null = undefined;
   private _t?: number | null = undefined;
+  private _ck = new Set<string>();
 
   /* LifecycleMethods */
   public setup?(): void;
@@ -70,6 +71,7 @@ export class Cona extends HTMLElement {
   }
 
   disconnectedCallback() {
+    this._clearValues();
     this.onUnmounted?.();
   }
 
@@ -81,6 +83,7 @@ export class Cona extends HTMLElement {
    */
   private _update(shouldShallowCompareProps = false) {
     if (shouldShallowCompareProps && this._shadowCompareObject(this._op, this.props)) return;
+    this._clearValues();
     const renderString = this.render?.(this._render.bind(this));
     const { body } = new DOMParser().parseFromString(
       renderString || "",
@@ -157,6 +160,7 @@ export class Cona extends HTMLElement {
         if (s.endsWith("=")) {
           if (/(p:|on|ref).*$/.test(s)) {
             const key = Math.random().toString(36);
+            this._ck.add(valueString);
 
             Cona._c[key] =
               typeof currentValue === "function"
@@ -284,5 +288,17 @@ export class Cona extends HTMLElement {
       (accumulator, element) => createAttributeObject(accumulator, element),
       {},
     );
+  }
+
+  /**
+   * Clears values that get replaced into the template string, bound to events,
+   * and used as references.
+   */
+  private _clearValues() {
+      for (const key of this._ck) {
+          delete Cona._c[key];
+      }
+
+      this._ck.clear();
   }
 }
