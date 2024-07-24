@@ -10,10 +10,6 @@ interface State {
   [key: string]: any;
 }
 
-interface Computed<T> {
-  get: () => T;
-}
-
 export class Cona extends HTMLElement {
   private _op: Props;
   private props: Props;
@@ -94,9 +90,9 @@ export class Cona extends HTMLElement {
 
     for (const [valueFn, callback] of this._ef.entries()) {
       const valueBeforeUpdate = this._ev.get(valueFn);
-      const valueAfterUpdate = valueFn.bind(this)();
+      const valueAfterUpdate = valueFn.call(this);
       if (valueBeforeUpdate !== valueAfterUpdate) {
-        callback.bind(this)(valueBeforeUpdate, valueAfterUpdate);
+        callback.call(this, valueBeforeUpdate, valueAfterUpdate);
       }
 
       this._ev.set(valueFn, valueAfterUpdate);
@@ -200,7 +196,7 @@ export class Cona extends HTMLElement {
    */
   effect(valueFn: EffectFunction, callback: EffectCallback) {
     this._ef.set(valueFn, callback);
-    this._ev.set(valueFn, valueFn.bind(this)());
+    this._ev.set(valueFn, valueFn.call(this));
   }
 
   /**

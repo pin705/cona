@@ -1,5 +1,8 @@
 import { Cona } from "../dist/index.mjs";
 
+// Expose Cona for debugging.
+window.Cona = Cona;
+
 Cona.style = `
   * {
     box-sizing: border-box;
