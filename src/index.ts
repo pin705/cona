@@ -131,7 +131,7 @@ export class Cona extends HTMLElement {
       if (c?.attributes) {
         while (c.attributes.length > 0) c.removeAttribute(c.attributes[0].name);
 
-        for (const { name, value } of this._nodeMap(n?.attributes)) {
+        for (const { name, value } of this._nodeMap(n?.attributes || [])) {
           c.setAttribute(name, value);
         }
       }
