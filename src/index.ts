@@ -82,10 +82,7 @@ export class Cona extends HTMLElement {
   private _update(shouldShallowCompareProps = false) {
     if (shouldShallowCompareProps && this._shadowCompareObject(this._op, this.props)) return;
     const renderString = this.render?.(this._render.bind(this));
-    const { body } = new DOMParser().parseFromString(
-      renderString || "",
-      "text/html",
-    );
+    const body = Document.parseHTMLUnsafe(renderString || "").body;
     const styleElement = document.createElement("style");
     styleElement.innerHTML = Cona.style;
     this._pathDomDiffing(this._sr!, body, styleElement);
